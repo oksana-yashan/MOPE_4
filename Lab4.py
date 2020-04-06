@@ -17,7 +17,7 @@ y_min = round(200 + x_min)
 y_max = round(200 + x_max)
 m = 3
 
-# functions
+
 def cohren_value(f2, f1, q):
     f2 += 1
     partResult1 = q / (f2 - 1)
@@ -190,9 +190,6 @@ else:
 
 
 
-
-
-
 # Equation with intersection
 
 while (with_interaction):
@@ -275,14 +272,6 @@ while (with_interaction):
 
     # main functions
 
-    def get_cochran(f1, f2, q):
-        partResult1 = q / f2
-        params = [partResult1, f1, (f2 - 1) * f1]
-        fisher = f.isf(*params)
-        result = fisher / (fisher + (f2 - 1))
-        return result.__round__(3)
-
-
     def theor_y(x_table, b_coef, importance):
         x_table = [list(compress(row, importance)) for row in x_table]  # update: if importance 0 - get rid of x(ij)
         b_coef = list(compress(b_coef, importance))  # update: if importance 0 - get rid of b
@@ -333,7 +322,7 @@ while (with_interaction):
         f2 = N
         p = 0.95
         q = 1 - p
-        gt = get_cochran(f1, f2, q)
+        gt = cohren_value(f1, f2, q)
         print("Gp = {}; Gt = {}; f1 = {}; f2 = {}; q = {:.2f}".format(gp, gt, f1, f2, q))
         if gp < gt:
             print("Gp < Gt => дисперсії рівномірні")
@@ -363,8 +352,7 @@ while (with_interaction):
         f4 = N - d
         q = 0.05
         theoret_y = theor_y(nat_x_table, b_coefficients, importance)
-        theor_values_to_print = list(
-            zip(map(lambda x: "x1 = {0[0]}, x2 = {0[1]}, x3 = {0[2]}".format(x), nat_x_table), theoret_y))
+        theor_values_to_print = list(zip(map(lambda x: "x1 = {0[0]}, x2 = {0[1]}, x3 = {0[2]}".format(x), nat_x_table), theoret_y))
         print("Теоретичні y:")
         print("\n".join(["{val[0]}: y = {val[1]}".format(val=el) for el in theor_values_to_print]))
         y_averages = np.array(list(map(np.average, y_table)))
@@ -380,4 +368,3 @@ while (with_interaction):
 
     fisher = fisher_criteria(m, N, 1, x_table, y_arr, b_i, importance)
     with_interaction = False
-
