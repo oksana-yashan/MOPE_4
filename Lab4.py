@@ -232,7 +232,7 @@ while (with_interaction):
     def m_ij(*arrays):
         return np.average(reduce(lambda el_1, el_2: el_1 + el_2, arrays))  # reduce: sums all el in given arrays
 
-
+# this coefs are called partial derrivative or just sum of given products of factor(metoda 6th page)
     coefs = [[N, m_ij(x1i), m_ij(x2i), m_ij(x3i), m_ij(x1i * x2i), m_ij(x1i * x3i), m_ij(x2i * x3i), m_ij(x1i * x2i * x3i)],
              [m_ij(x1i), m_ij(x1i ** 2), m_ij(x1i * x2i), m_ij(x1i * x3i), m_ij(x1i ** 2 * x2i), m_ij(x1i ** 2 * x3i),
               m_ij(x1i * x2i * x3i), m_ij(x1i ** 2 * x2i * x3i)],
